@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.seleniumhq.selenium:selenium-java:4.43.0'
+    implementation 'io.github.bonigarcia:webdrivermanager:6.3.4'
+
+    implementation 'io.cucumber:cucumber-java:7.34.3'
+    testImplementation 'io.cucumber:cucumber-junit:7.34.3'
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+//test {
+//    useJUnitPlatform()
+//}
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
+
+def tags = project.findProperty('tags') ? project.findProperty('tags') + ' and not @exclude' : 'not @exclude'
+
+tasks.register('cucumber', JavaExec) {
+    description = "Running Cucumber Test"
+    group = "verification"
+
+    dependsOn assemble, testClasses
+
+    mainClass = "io.cucumber.core.cli.Main"
+
+    classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+
+    args = [
+            '--plugin', 'pretty',
+            '--plugin', 'html:reports/index.html',
+            '--plugin', 'json:reports/cucumber.json',
+            '--glue', 'saucedemo',
+            '--tags', "${tags}",
+            'src/test/resources/features'
+    ]
+}
