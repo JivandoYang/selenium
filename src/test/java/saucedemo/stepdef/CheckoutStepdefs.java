@@ -5,10 +5,14 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import saucedemo.driver.DriverManager;
 import saucedemo.page.CartPage;
 import saucedemo.page.CheckoutPage;
 import saucedemo.page.LoginPage;
+
+import java.time.Duration;
 
 import static org.junit.Assert.assertTrue;
 
@@ -52,6 +56,10 @@ public class CheckoutStepdefs {
 
     @Then("user pergi ke halaman overview")
     public void userPergiKeHalamanOverview() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(
+                ExpectedConditions.urlContains("checkout-step-two.html")
+        );
         assertTrue(driver.getCurrentUrl().contains("checkout-step-two.html"));
     }
 

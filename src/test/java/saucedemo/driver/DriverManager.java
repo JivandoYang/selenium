@@ -4,6 +4,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class DriverManager {
 
     private static WebDriver driver;
@@ -11,8 +14,10 @@ public class DriverManager {
     public static void init() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless=new");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--guest");
+        options.addArguments("--disable-notifications");
+        options.addArguments("--disable-features=PasswordLeakDetection");
+
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
     }
