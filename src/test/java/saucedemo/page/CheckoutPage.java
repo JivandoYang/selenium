@@ -17,7 +17,7 @@ public class CheckoutPage {
     By lastNameField = By.id("last-name");
     By postalCodeField = By.id("postal-code");
     By errorMessage = By.cssSelector("h3[data-test='error']");
-
+    By cancelButton = By.id("cancel");
     public CheckoutPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -34,6 +34,10 @@ public class CheckoutPage {
 
     public void clickContinue() {
         driver.findElement(continueButton).click();
+    }
+
+    public void clickCancel() {
+        driver.findElement(cancelButton).click();
     }
 
     public void inputFirstname(String firstname) {

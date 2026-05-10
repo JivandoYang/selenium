@@ -31,3 +31,12 @@ Feature: Checkout
     And user memasukkan postalcode "14152"
     And user klik tombol continue
     Then sistem muncul pesan error
+
+    @cancelCheckout
+    Scenario: user balik ke halaman cart
+      Given user login dengan username "standard_user" dan password "secret_sauce"
+      And user menekan icon cart
+      And user menekan tombol checkout
+      And user berada di halaman checkout
+      When user menekan tombol cancel
+      Then user berada di halaman cart

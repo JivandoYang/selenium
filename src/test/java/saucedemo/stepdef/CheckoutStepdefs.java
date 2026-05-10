@@ -59,4 +59,9 @@ public class CheckoutStepdefs {
     public void sistemMunculPesanError() {
         assertTrue(checkoutPage.isErrorDisplayed());
     }
+
+    @When("user menekan tombol cancel")
+    public void userMenekanTombolCancel() {
+        checkoutPage.clickCancel();
+    }
 }
