@@ -33,8 +33,20 @@ jobs:
     # Kasih permission untuk run gradlew di linux
     - name: Grant execute permission
       run: chmod +x gradlew
+      
+    # Menjalakan command testNG
+    - name: Run API Test
+      run: ./gradlew test
+    # Upload API Report
+    - name: Upload API Test Reports
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: testng-report
+        path: test-output/
+        
     # Menajalankan command cucumber untuk menjalankan testing
-    - name: Run Automation Test
+    - name: Run Selenium Test
       run: ./gradlew cucumber
     # Buat hasil testing dalam bentuk laporan dalam folder reports
     - name: Upload Test Reports
@@ -43,3 +55,4 @@ jobs:
       with:
         name: cucumber-report
         path: reports/
+
