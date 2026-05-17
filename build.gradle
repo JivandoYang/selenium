@@ -10,20 +10,24 @@ repositories {
 }
 
 dependencies {
+    // Selenium UI
     implementation 'org.seleniumhq.selenium:selenium-java:4.43.0'
     implementation 'io.github.bonigarcia:webdrivermanager:6.3.4'
-
     implementation 'io.cucumber:cucumber-java:7.34.3'
     testImplementation 'io.cucumber:cucumber-junit:7.34.3'
-
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // API TestNG
+    testImplementation 'org.testng:testng:7.12.0'
+    testImplementation 'io.rest-assured:rest-assured:6.0.0'
+    implementation 'org.json:json:20251224'
 }
 
-//test {
-//    useJUnitPlatform()
-//}
+test {
+    useTestNG()
+}
 
 configurations {
     cucumberRuntime {
